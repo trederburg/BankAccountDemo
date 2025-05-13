@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BankAccount.Events\BankAccount.Events.csproj" />
+  </ItemGroup>
+
 </Project>
