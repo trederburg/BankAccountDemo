@@ -41,7 +41,7 @@ namespace BankAccount.Infrastructure
                 case MoneyWithdrawn withdrawn:
                     var withdrawAccount = await readDbContext.AccountSummaries.FindAsync(withdrawn.AggregateId);
                     ArgumentNullException.ThrowIfNull(withdrawAccount, nameof(withdrawAccount));
-                    withdrawAccount.Balance += withdrawn.Amount;
+                    withdrawAccount.Balance -= withdrawn.Amount;
                     withdrawAccount.LastUpdated = withdrawn.Timestamp;
                     break;
                 default:
