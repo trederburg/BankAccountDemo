@@ -27,19 +27,19 @@ namespace BankAccount.Infrastructure
                 case AccountOpened opened:
                     readDbContext.AccountSummaries.Add(new AccountSummary
                     {
-                        AccountId = opened.AggregateId,
+                        AccountId = opened.AccountId,
                         Balance = opened.InitialDeposit,
                         LastUpdated = opened.Timestamp
                     });
                     break;
                 case MoneyDeposited deposited:
-                    var depositAccount = await readDbContext.AccountSummaries.FindAsync(deposited.AggregateId);
+                    var depositAccount = await readDbContext.AccountSummaries.FindAsync(deposited.AccountId);
                     ArgumentNullException.ThrowIfNull(depositAccount, nameof(depositAccount));
                     depositAccount.Balance += deposited.Amount;
                     depositAccount.LastUpdated = deposited.Timestamp;
                     break;
                 case MoneyWithdrawn withdrawn:
-                    var withdrawAccount = await readDbContext.AccountSummaries.FindAsync(withdrawn.AggregateId);
+                    var withdrawAccount = await readDbContext.AccountSummaries.FindAsync(withdrawn.AccountId);
                     ArgumentNullException.ThrowIfNull(withdrawAccount, nameof(withdrawAccount));
                     withdrawAccount.Balance -= withdrawn.Amount;
                     withdrawAccount.LastUpdated = withdrawn.Timestamp;

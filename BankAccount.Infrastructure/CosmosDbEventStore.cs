@@ -31,7 +31,7 @@ namespace BankAccount.Infrastructure
 
                 foreach (var doc in response)
                 {
-                    var eventType = Type.GetType($"BankAccount.Events.{doc.Type}");
+                    var eventType = Type.GetType($"BankAccount.Events.{doc.Type}, BankAccount.Events");
 
                     if (eventType == null)
                         throw new InvalidOperationException($"Unknown event type {doc.Type}");
@@ -55,14 +55,15 @@ namespace BankAccount.Infrastructure
             {
                 var document = new EventDocument
                 {
-                    Id = Guid.NewGuid().ToString(),           // Cosmos needs an ID
-                    AggregateId = e.AggregateId,
+                    id = Guid.NewGuid().ToString(),           // Cosmos needs an 'id'
+                    aggregateId = e.AccountId.ToString(),    // Partition key
+                    AccountId = e.AccountId,
                     Timestamp = e.Timestamp,
                     Type = e.Type,
                     EventData = e                             // Store the raw event
                 };
 
-                await container.CreateItemAsync(document, new PartitionKey(aggregateId.ToString()));
+                await container.CreateItemAsync(document, new PartitionKey(document.aggregateId));
             }
         }
     }

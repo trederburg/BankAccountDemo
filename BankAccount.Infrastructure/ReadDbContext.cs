@@ -10,5 +10,15 @@ namespace BankAccount.Infrastructure
         }
         public DbSet<AccountSummary> AccountSummaries { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AccountSummary>()
+                .HasKey(a => a.AccountId);
+
+            modelBuilder.Entity<AccountSummary>()
+                .Property(a => a.Balance)
+                .HasPrecision(18, 2);
+        }
+
     }
 }

@@ -7,11 +7,11 @@ namespace BankAccount.Events
         public MoneyDeposited() { }
         public MoneyDeposited(Guid id, decimal amount)
         {
-            AggregateId = id;
+            AccountId = id;
             Amount = amount;
             Timestamp = DateTime.UtcNow;
         }
-        public Guid AggregateId { get; set; }
+        public Guid AccountId { get; set; }
         public DateTime Timestamp { get; set; }
         public string Type => nameof(MoneyDeposited);
         public decimal Amount { get; set; }

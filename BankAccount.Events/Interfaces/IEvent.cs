@@ -2,7 +2,7 @@
 {
     public interface IEvent
     {
-        Guid AggregateId { get; }
+        Guid AccountId { get; }
         DateTime Timestamp { get; }
         string Type { get; }
     }
