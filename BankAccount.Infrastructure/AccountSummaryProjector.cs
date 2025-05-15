@@ -15,7 +15,7 @@ namespace BankAccount.Infrastructure
         /// <summary>
         /// Handles the event and updates the read model. This is optimized for getting the current balance of an account.
         /// Right now this is simple and synchronous,
-        /// In production you would want to use a message queue or similar to handle events asynchronously.
+        /// In production I would want to use a message queue or similar to handle events asynchronously.
         /// </summary>
         /// <param name="event"></param>
         /// <returns></returns>
