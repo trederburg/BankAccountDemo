@@ -36,7 +36,7 @@ namespace BankAccount.Infrastructure
                     if (eventType == null)
                         throw new InvalidOperationException($"Unknown event type {doc.Type}");
 
-                    var eventDataJson = JsonSerializer.Serialize(doc.EventData);
+                    var eventDataJson = doc.EventData.ToString();
                     var @event = (IEvent)JsonSerializer.Deserialize(eventDataJson, eventType);
 
                     events.Add(@event);
@@ -57,7 +57,7 @@ namespace BankAccount.Infrastructure
                 {
                     id = Guid.NewGuid().ToString(),           // Cosmos needs an 'id'
                     aggregateId = e.AccountId.ToString(),    // Partition key
-                    AccountId = e.AccountId,
+                    AccountId = e.AccountId.ToString(),
                     Timestamp = e.Timestamp,
                     Type = e.Type,
                     EventData = e                             // Store the raw event
